@@ -1,24 +1,21 @@
-$(document).ready(function(){
-	$('img:first').toggleClass('active');
 
+$(document).ready(function(){
+	// Show the first thumbnail image and append it to the panel
+	$('img:first').toggleClass('active');
 	var first_img = $('img:first').clone().appendTo('#panel').removeAttr('width').removeClass('active');
-	
+	// Changing the status and showing the thumbnail in the panel when clicked.
 	$('#sidebar img').click(function(){
-		first_img.fadeOut('fast');
+		var selected_photo = $(this);
+		// Change active status of the thumbnails
 		if($(this).hasClass('active')){
-			$(this).removeClass('active');
 		} else {
 			$(this).siblings().removeClass('active');
 			$(this).addClass('active');
 		}
-
-		$(this).clone().appendTo('#panel').removeAttr('width').removeClass('active');
-		// if($('#panel img').hasClass('active'))
-
-	});		
-
-	
-
-
-	
+		// Change panel photo when thumbnail is clicked
+		$('#panel img').fadeOut(function(){
+			selected_photo.clone().appendTo('#panel').removeAttr('width').removeClass('active');
+			$(this).remove();
+		});
+	});			
 });
